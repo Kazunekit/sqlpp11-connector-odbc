@@ -51,39 +51,39 @@ endif()
 
 add_library(sqlpp11-odbc INTERFACE)
 
-target_link_libraries(sqlpp11-odbc INTERFACE sqlpp11 ${ODBC_LIBRARIES} dl)
+target_link_libraries(${PROJECT_NAME} INTERFACE sqlpp11 ${ODBC_LIBRARIES} dl)
 
-install(TARGETS sqlpp11-odbc EXPORT Sqlpp11ConnectorODBCTargets)
+install(TARGETS ${PROJECT_NAME} EXPORT Sqlpp11ConnectorODBCTargets)
 
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/sqlpp11" DESTINATION include)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/version.h" DESTINATION include/sqlpp11/odbc/)
 
 if(NOT SQLPP11_ODBC_DISABLE_SHARED)
-  add_library(sqlpp11-odbc-shared SHARED
+  add_library(${PROJECT_NAME}-shared SHARED
 	src/connection.cpp
 	src/bind_result.cpp
 	src/prepared_statement.cpp
 	src/detail/connection_handle.cpp)
-  target_include_directories(sqlpp11-odbc-shared INTERFACE
+  target_include_directories(${PROJECT_NAME}-shared INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     )
-  target_link_libraries(sqlpp11-odbc-shared sqlpp11-odbc)
-  set_target_properties(sqlpp11-odbc-shared PROPERTIES OUTPUT_NAME sqlpp11-odbc)
+  target_link_libraries(${PROJECT_NAME}-shared ${PROJECT_NAME})
+  set_target_properties(${PROJECT_NAME}-shared PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
   install(TARGETS sqlpp11-odbc-shared EXPORT Sqlpp11ConnectorODBCTargets DESTINATION lib)
 endif()
 if(NOT SQLPP11_ODBC_DISABLE_STATIC)
-  add_library(sqlpp11-odbc-static STATIC
+  add_library(${PROJECT_NAME}-static STATIC
 	src/connection.cpp
 	src/bind_result.cpp
 	src/prepared_statement.cpp
 	src/detail/connection_handle.cpp)
-  target_include_directories(sqlpp11-odbc-static INTERFACE
+  target_include_directories(${PROJECT_NAME}-static INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     )
-  target_link_libraries(sqlpp11-odbc-static sqlpp11-odbc)
-  set_target_properties(sqlpp11-odbc-static PROPERTIES OUTPUT_NAME sqlpp11-odbc)
+  target_link_libraries(${PROJECT_NAME}-static ${PROJECT_NAME})
+  set_target_properties(${PROJECT_NAME}-static PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
   install(TARGETS sqlpp11-odbc-static EXPORT Sqlpp11ConnectorODBCTargets DESTINATION lib)
 endif()
 
