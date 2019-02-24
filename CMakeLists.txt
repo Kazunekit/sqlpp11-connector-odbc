@@ -51,7 +51,7 @@ endif()
 
 add_library(sqlpp11-odbc INTERFACE)
 
-target_link_libraries(sqlpp11-odbc INTERFACE sqlpp11 ${ODBC_LIBRARIES})
+target_link_libraries(sqlpp11-odbc INTERFACE sqlpp11 ${ODBC_LIBRARIES} dl)
 
 install(TARGETS sqlpp11-odbc EXPORT Sqlpp11ConnectorODBCTargets)
 
