@@ -49,7 +49,7 @@ if(NOT CMAKE_SQLPP11_CONNECTOR_ODBC_TESTS_IGNORE)
     add_subdirectory(tests)
 endif()
 
-add_library(sqlpp11-odbc INTERFACE)
+add_library(${PROJECT_NAME} INTERFACE)
 
 target_link_libraries(${PROJECT_NAME} INTERFACE sqlpp11 ${ODBC_LIBRARIES} dl)
 
